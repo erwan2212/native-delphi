@@ -1,0 +1,19 @@
+program helloworld;
+ 
+uses
+  // as WriteLn is not supported, yet, we need to
+  // use the functions provided by the kernel directly
+  NDK, NDKUtils;
+ 
+var
+  ntstr: TNtUnicodeString;
+  interval: TLargeInteger;
+begin
+  ShortStrToNtStr('Hello World!'#13#10, ntstr);
+  NtDisplayString(@ntstr);
+  FreeMem(ntstr.buffer);
+ 
+  // wait 3 seconds
+  interval.QuadPart := - 3000 * 10000;
+  NtDelayExecution(@interval);
+end.
